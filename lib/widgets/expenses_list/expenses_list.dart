@@ -4,10 +4,12 @@ import '../../models/expense.dart';
 
 class ExpensesList extends StatelessWidget {
   //recives name parameter from the expenses.dart.
-  const ExpensesList({super.key, required this.expenses});
+  const ExpensesList(
+      {super.key, required this.expenses, required this.onRemoveExpense});
 
   //this expenses recived from expenses.dart where the _registeredExpenses passed to this file.
   final List<Expense> expenses;
+  final void Function(Expense expense) onRemoveExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,17 @@ class ExpensesList extends StatelessWidget {
       itemCount: expenses.length,
 
       //Here the declered final value passed on anothe file.
-      itemBuilder: (context, index) => ExpenseItem(expense: expenses[index]),
+      itemBuilder: (context, index) => Dismissible(
+        key: ValueKey(
+          expenses[index],
+        ),
+        onDismissed: (direction) {
+          onRemoveExpense(expenses[index]);
+        },
+        child: ExpenseItem(
+          expense: expenses[index],
+        ),
+      ),
     );
   }
 }

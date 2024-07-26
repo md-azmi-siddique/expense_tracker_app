@@ -39,6 +39,7 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenses() {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext context) =>
             NewExpense(onAddExpense: _addNewExpense));
@@ -47,6 +48,12 @@ class _ExpensesState extends State<Expenses> {
   void _addNewExpense(Expense expense) {
     setState(() {
       _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.remove(expense);
     });
   }
 
@@ -70,7 +77,10 @@ class _ExpensesState extends State<Expenses> {
           // const Text("data"),
           Expanded(
             //Here the List sent to the expense_list.dart file.
-            child: ExpensesList(expenses: _registeredExpenses),
+            child: ExpensesList(
+              expenses: _registeredExpenses,
+              onRemoveExpense: _removeExpense,
+            ),
           ),
         ],
       ),
