@@ -1,7 +1,6 @@
 import 'package:expense_tracker_app/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker_app/widgets/new_expense.dart';
 import 'package:flutter/material.dart';
-
 import '../models/expense.dart';
 
 class Expenses extends StatefulWidget {
@@ -14,6 +13,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
+  // Demo data for presenting a list to the UI
   final List<Expense> _registeredExpenses = [
     Expense(
         title: 'Food',
@@ -35,23 +35,12 @@ class _ExpensesState extends State<Expenses> {
         amount: 20.00,
         date: DateTime.now(),
         category: Category.leisure),
-    Expense(
-        title: 'Work',
-        amount: 20.00,
-        date: DateTime.now(),
-        category: Category.leisure),
-    Expense(
-        title: 'TT',
-        amount: 20.00,
-        date: DateTime.now(),
-        category: Category.leisure)
   ];
 
   void _openAddExpenses() {
     showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) => const NewExpense()
-    );
+        context: context,
+        builder: (BuildContext context) => const NewExpense());
   }
 
   @override
@@ -61,7 +50,9 @@ class _ExpensesState extends State<Expenses> {
         title: const Text("Daily Expense Tracker"),
         actions: [
           IconButton(
-            onPressed: _openAddExpenses,
+            onPressed: () {
+              _openAddExpenses();
+            },
             icon: const Icon(Icons.add),
           ),
         ],

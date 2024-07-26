@@ -30,10 +30,27 @@ class _NewExpenseState extends State<NewExpense> {
   }
 
   void _submitExpenseData() {
-    final enteredAmount = double.tryParse(_amountController.text) ; //convert string into numbers
+    final enteredAmount =
+        double.tryParse(_amountController.text); //convert string into numbers
     final amontIsInvalid = enteredAmount == null || enteredAmount <= 0;
-    if(_titleController.text.trim().isEmpty || amontIsInvalid || _selectedDate == null){
-
+    if (_titleController.text.trim().isEmpty ||
+        amontIsInvalid ||
+        _selectedDate == null) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text('Please Provide Valid Informaton'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("OK"))
+          ],
+        ),
+      );
+      return;
     }
   }
 
